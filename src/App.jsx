@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { addForm, deleteForm, getForm } from "./api";
+import { Route, Router, Routes } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
 
 function App() {
   const [forms, setForms] = useState([]);
@@ -75,163 +78,168 @@ function App() {
   const handleDelete = async (id) => {
     try {
       await deleteForm(id);
-      fetchForms()
-    }
-     catch (error) {
+      fetchForms();
+    } catch (error) {
       console.error("error: ", error);
       throw error;
     }
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Text: </label>
-          <input
-            type="text"
-            name="text"
-            value={form.text}
-            onChange={handleChange}
-          />
-          {errors.text && <p>{errors.text}</p>}
-        </div>
+    // <div>
+    //   <form onSubmit={handleSubmit}>
+    //     <div>
+    //       <label>Text: </label>
+    //       <input
+    //         type="text"
+    //         name="text"
+    //         value={form.text}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.text && <p>{errors.text}</p>}
+    //     </div>
 
-        <div>
-          <label>Email: </label>
-          <input
-            type="text"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-          />
-          {errors.email && <p>{errors.email}</p>}
-        </div>
+    //     <div>
+    //       <label>Email: </label>
+    //       <input
+    //         type="text"
+    //         name="email"
+    //         value={form.email}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.email && <p>{errors.email}</p>}
+    //     </div>
 
-        <div>
-          <label>Password: </label>
-          <input
-            type="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-          />
-          {errors.password && <p>{errors.password}</p>}
-        </div>
+    //     <div>
+    //       <label>Password: </label>
+    //       <input
+    //         type="password"
+    //         name="password"
+    //         value={form.password}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.password && <p>{errors.password}</p>}
+    //     </div>
 
-        <div>
-          <label>Confirm Password: </label>
-          <input
-            type="password"
-            name="confirmPassword"
-            value={form.confirmPassword}
-            onChange={handleChange}
-          />
-          {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        </div>
+    //     <div>
+    //       <label>Confirm Password: </label>
+    //       <input
+    //         type="password"
+    //         name="confirmPassword"
+    //         value={form.confirmPassword}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+    //     </div>
 
-        <div>
-          <label>phone: </label>
-          <input
-            type="number"
-            name="number"
-            value={form.number}
-            onChange={handleChange}
-          />
-          {errors.number && <p>{errors.number}</p>}
-        </div>
+    //     <div>
+    //       <label>phone: </label>
+    //       <input
+    //         type="number"
+    //         name="number"
+    //         value={form.number}
+    //         onChange={handleChange}
+    //       />
+    //       {errors.number && <p>{errors.number}</p>}
+    //     </div>
 
-        <div>
-          <label>country: </label>
-          <select name="country" value={form.country} onChange={handleChange}>
-            <option value="">select</option>
-            <option value="india">india</option>
-            <option value="japan">japan</option>
-            <option value="russia">russia</option>
-          </select>
+    //     <div>
+    //       <label>country: </label>
+    //       <select name="country" value={form.country} onChange={handleChange}>
+    //         <option value="">select</option>
+    //         <option value="india">india</option>
+    //         <option value="japan">japan</option>
+    //         <option value="russia">russia</option>
+    //       </select>
 
-          {errors.country && <p>{errors.country}</p>}
-        </div>
+    //       {errors.country && <p>{errors.country}</p>}
+    //     </div>
 
-        <div>
-          <label>Hobbies: </label>
+    //     <div>
+    //       <label>Hobbies: </label>
 
-          <label>
-            <input
-              type="checkbox"
-              name="hobbies"
-              value="football"
-              onChange={handleChange}
-            />
-            football
-          </label>
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           name="hobbies"
+    //           value="football"
+    //           onChange={handleChange}
+    //         />
+    //         football
+    //       </label>
 
-          <label>
-            <input
-              type="checkbox"
-              name="hobbies"
-              value="cricket"
-              onChange={handleChange}
-            />
-            cricket
-          </label>
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           name="hobbies"
+    //           value="cricket"
+    //           onChange={handleChange}
+    //         />
+    //         cricket
+    //       </label>
 
-          <label>
-            <input
-              type="checkbox"
-              name="hobbies"
-              value="hockey"
-              onChange={handleChange}
-            />
-            hockey
-          </label>
+    //       <label>
+    //         <input
+    //           type="checkbox"
+    //           name="hobbies"
+    //           value="hockey"
+    //           onChange={handleChange}
+    //         />
+    //         hockey
+    //       </label>
 
-          {errors.hobbies && <p>{errors.hobbies}</p>}
-        </div>
+    //       {errors.hobbies && <p>{errors.hobbies}</p>}
+    //     </div>
 
-        <div>
-          <label>Gender</label>
-          <label>
-            <input
-              name="gender"
-              type="radio"
-              value="male"
-              onChange={handleChange}
-            />
-            Male
-          </label>
-          <label>
-            <input
-              name="gender"
-              type="radio"
-              value="female"
-              onChange={handleChange}
-            />
-            Female
-          </label>
-        </div>
+    //     <div>
+    //       <label>Gender</label>
+    //       <label>
+    //         <input
+    //           name="gender"
+    //           type="radio"
+    //           value="male"
+    //           onChange={handleChange}
+    //         />
+    //         Male
+    //       </label>
+    //       <label>
+    //         <input
+    //           name="gender"
+    //           type="radio"
+    //           value="female"
+    //           onChange={handleChange}
+    //         />
+    //         Female
+    //       </label>
+    //     </div>
 
-        <button type="submit">Submit</button>
-      </form>
+    //     <button type="submit">Submit</button>
+    //   </form>
 
-      <div>
-        {forms.map((f, index) => (
-          <div key={index}>
-            <p>{f.text}</p>
-            <p>{f.email}</p>
-            <p>{f.country}</p>
-            <p>{f.gender}</p>
+    //   <div>
+    //     {forms.map((f, index) => (
+    //       <div key={index}>
+    //         <p>{f.text}</p>
+    //         <p>{f.email}</p>
+    //         <p>{f.country}</p>
+    //         <p>{f.gender}</p>
 
-            <button
-              onClick={() => {
-                handleDelete(f.id);
-              }}
-            >delete</button>
-            <hr />
-          </div>
-        ))}
-      </div>
-    </div>
+    //         <button
+    //           onClick={() => {
+    //             handleDelete(f.id);
+    //           }}
+    //         >delete</button>
+    //         <hr />
+    //       </div>
+    //     ))}
+    //   </div>
+    // </div>
+
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+      </Route>
+    </Routes>
   );
 }
 
